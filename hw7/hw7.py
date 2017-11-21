@@ -67,7 +67,7 @@ def _marked(int_bor) :
 		marked_list.append(tmp)
 	return marked_list
 
-######
+###### not work below #####
 
 def _shrink(im , marked) :
 	pixels = im.load()
