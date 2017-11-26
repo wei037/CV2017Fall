@@ -67,8 +67,6 @@ def _marked(int_bor) :
 		marked_list.append(tmp)
 	return marked_list
 
-###### not work below #####
-
 def _shrink(im , marked) :
 	im_shrink = im.copy()
 	# b border
@@ -76,11 +74,8 @@ def _shrink(im , marked) :
 	for i in range(1,im_shrink.size[0]-1) :
 		for j in range(1,im_shrink.size[1]-1) :
 			if marked[i-1][j-1] == 'm' :
-				#print (i,j,'----->',yokoi_pixel(im_shrink,j,i))
 				if yokoi_pixel(im_shrink,j,i) == 1 :
 					im_shrink.putpixel((j , i) , 0)
-		#break
-
 	return im_shrink
 
 def yokoi_pixel(im , i , j) :
@@ -93,7 +88,6 @@ def yokoi_pixel(im , i , j) :
 	return 1 if int(s) == 1 else 0
 
 def h(b,c,d,e) :
-	#print (b,c,d,e)
 	if b == c and b == d and b == e :
 		return 0.1
 	elif b != c :
@@ -112,19 +106,10 @@ if __name__ == '__main__' :
 	im_down = down_sampling(im)
 	im_down.save(benchmark+'_down.bmp')
 	while 1 :
-		#print ('hello')
 		int_bor = _int_bor(im_down)
-		'''for i in range(len(int_bor)) :
-			for j in range(len(int_bor[0])) :
-				print (int_bor[i][j],end="")
-			print ('')'''
 		marked = _marked(int_bor)
-		'''for i in range(len(marked)) :
-			for j in range(len(marked[0])) :
-				print (marked[i][j],end="")
-			print ('')'''
 		im_shrink = _shrink(im_down,marked)
-		#break
+
 		pixel_before = im_down.load()
 		pixel_after = im_shrink.load()
 		diff = False
@@ -134,11 +119,8 @@ if __name__ == '__main__' :
 					diff = True
 					break
 		if diff == False :
-			#for i in range(len(marked)) :
-			#	for j in range(len(marked[0])) :
-			#		print (marked[i][j],end="")
-			#	print ('')
 			break
 		else :
 			im_down = im_shrink
+			
 	im_shrink.save(benchmark+'_shrink.bmp')
