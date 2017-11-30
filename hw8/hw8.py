@@ -108,29 +108,29 @@ def closing(im , kernel) :
 def SNR(im , im_n):
 	im_pixel = im.load()
 	im_n_pixel = im_n.load()
-	N = (im.size[0]-4)*(im.size[1]-4)
+	N = im.size[0]*im.size[1]
 
 	im_mean = 0
-	for i in range(2,im.size[0]-2) :
-		for j in range(2,im.size[1]-2) :
+	for i in range(im.size[0]) :
+		for j in range(im.size[1]) :
 			im_mean += im_pixel[i,j]
 	im_mean /= N
 
 	im_n_mean = 0
-	for i in range(2,im.size[0]-2) :
-		for j in range(2,im.size[1]-2) :
+	for i in range(im.size[0]) :
+		for j in range(im.size[1]) :
 			im_n_mean += im_n_pixel[i,j] - im_pixel[i,j]
 	im_n_mean /= N
 
 	im_vs = 0
-	for i in range(2,im.size[0]-2) :
-		for j in range(2,im.size[1]-2) :
+	for i in range(im.size[0]) :
+		for j in range(im.size[1]) :
 			im_vs += (im_pixel[i,j] - im_mean)**2
 	im_vs /= N
 
 	im_n_vs = 0
-	for i in range(2,im.size[0]-2) :
-		for j in range(2,im.size[1]-2) :
+	for i in range(im.size[0]) :
+		for j in range(im.size[1]) :
 			im_n_vs += (im_n_pixel[i,j] - im_pixel[i,j] - im_n_mean)**2
 	im_n_vs /= N
 
