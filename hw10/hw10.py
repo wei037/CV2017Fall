@@ -1,24 +1,4 @@
 from PIL import Image
-import numpy as np
-
-def getpixel(im , x , y):
-	pixels = im.load()
-	try :
-		return pixels[x,y]
-	except :
-		return 0
-
-def getneighbor(im , center , size) :	
-	pixels = im.load()
-
-	neighbor = []
-	for m in range(-(size//2),size//2+1) :
-		tmp = []
-		for n in range(-(size//2),size//2+1) :
-			tmp.append(getpixel(im,center[0]+m,center[1]+n))
-		neighbor.append(tmp)
-
-	return neighbor
 
 def Laplace1(im, threshold):
 	pixels = im.load()
@@ -129,13 +109,13 @@ if __name__ == '__main__' :
 	benchmark = 'lena'
 	im = Image.open(benchmark+'.bmp').convert('L')	
 
-	#im_Laplace1 = Laplace1(im , 15)
-	#im_Laplace1.save(benchmark+'_Laplace1.bmp')
-	#im_Laplace2 = Laplace2(im , 15)
-	#im_Laplace2.save(benchmark+'_Laplace2.bmp')	
-	#im_MvL = Minimum_variance_Laplacian(im , 20)
-	#im_MvL.save(benchmark+'_MvL.bmp')
-	#im_LoG = Laplace_of_Gaussian(im , 3000)
-	#im_LoG.save(benchmark+'_LoG.bmp')
+	im_Laplace1 = Laplace1(im , 15)
+	im_Laplace1.save(benchmark+'_Laplace1.bmp')
+	im_Laplace2 = Laplace2(im , 15)
+	im_Laplace2.save(benchmark+'_Laplace2.bmp')	
+	im_MvL = Minimum_variance_Laplacian(im , 20)
+	im_MvL.save(benchmark+'_MvL.bmp')
+	im_LoG = Laplace_of_Gaussian(im , 3000)
+	im_LoG.save(benchmark+'_LoG.bmp')
 	im_DoG = Difference_of_Gaussian(im , 1)
 	im_DoG.save(benchmark+'_DoG.bmp')
